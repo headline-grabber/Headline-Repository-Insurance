@@ -41,15 +41,15 @@
 </head>
 <body>
 
-    <h1>Welcome to Headline-Grabber's Insurance Headline Repository</h1>
+    <h1>Welcome to My Landing Page</h1>
 
     <div class="button-container" id="buttons"></div>
 
     <script>
         const username = 'headline-grabber'; // Your GitHub username
-        const repository = 'Headline-Repository-Insurance'; // Your repository name
-        const branch = 'main'; // The branch you want to fetch files from
-        const apiUrl = https://api.github.com/repos/${username}/${repository}/git/trees/${branch}?recursive=1;
+        const repository = 'Headline-Repository'; // Your repository name
+        const branch = 'Insurance'; // The branch you want to fetch files from
+        const apiUrl = `https://api.github.com/repos/${username}/${repository}/git/trees/${branch}?recursive=1`;
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -61,7 +61,7 @@
                     const fileName = file.path.split('/').pop();
                     const link = document.createElement('a');
                     link.href = fileName;
-                    link.textContent = View ${fileName};
+                    link.textContent = `View ${fileName}`;
                     link.className = 'download-button';
 
                     buttonsContainer.appendChild(link);
