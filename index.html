@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .button-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to My Landing Page</h1>
+
+    <div class="button-container" id="buttons"></div>
+
+    <script>
+        const username = 'headline-grabber'; // Your GitHub username
+        const repository = 'Headline-Repository'; // Your repository name
+        const branch = 'Insurance'; // The branch you want to fetch files from
+        const apiUrl = `https://api.github.com/repos/${username}/${repository}/git/trees/${branch}?recursive=1`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const files = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.html') && item.path !== 'index.html');
+                const buttonsContainer = document.getElementById('buttons');
+
+                files.forEach(file => {
+                    const fileName = file.path.split('/').pop();
+                    const link = document.createElement('a');
+                    link.href = fileName;
+                    link.textContent = `View ${fileName}`;
+                    link.className = 'download-button';
+
+                    buttonsContainer.appendChild(link);
+                });
+            })
+            .catch(error => console.error('Error fetching files:', error));
+    </script>
+
+</body>
+</html>
