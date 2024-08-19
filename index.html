@@ -3,88 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>Embedded GitHub Buttons</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        /* Ensure the body takes full height and removes default margins */
+        html, body {
             margin: 0;
-            background-color: #f0f0f0;
-            text-align: center;
+            padding: 0;
+            height: 100%;
         }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 0; /* Remove any default margin */
+        /* Container styling */
+        .iframe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove border if not needed */
+            overflow: hidden;
         }
-        .button-container a {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-        }
-        .button-container a:hover {
-            background-color: #0056b3;
-        }
-        .back-button {
-            display: none; /* Hide by default */
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            margin-top: 20px; /* Space above the back button */
-        }
-        .back-button:hover {
-            background-color: #0056b3;
+        /* iframe styling to fill container */
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove default border around iframe */
         }
     </style>
 </head>
 <body>
 
-    <div class="button-container" id="buttons"></div>
-    <a href="javascript:history.back()" class="back-button" id="back-button">Back</a>
-
-    <script>
-        const username = 'headline-grabber'; // Your GitHub username
-        const repository = 'Headline-Repository-Insurance'; // Your repository name
-        const branch = 'main'; // The branch you want to fetch files from
-        const apiUrl = `https://api.github.com/repos/${username}/${repository}/git/trees/${branch}?recursive=1`;
-
-        // Fetch and display file buttons
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const files = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.html') && item.path !== 'index.html');
-                const buttonsContainer = document.getElementById('buttons');
-
-                files.forEach(file => {
-                    const fileName = file.path.split('/').pop();
-                    const link = document.createElement('a');
-                    link.href = fileName;
-                    link.textContent = `View ${fileName}`;
-                    link.className = 'download-button';
-
-                    buttonsContainer.appendChild(link);
-                });
-            })
-            .catch(error => console.error('Error fetching files:', error));
-
-        // Show the back button only if the user came from another page within the site
-        if (document.referrer && document.referrer.startsWith(window.location.origin)) {
-            document.getElementById('back-button').style.display = 'inline-block';
-        }
-    </script>
+    <div class="iframe-container">
+        <iframe src="https://headline-grabber.github.io/Headline-Repository-Insurance/" title="GitHub Buttons"></iframe>
+    </div>
 
 </body>
 </html>
