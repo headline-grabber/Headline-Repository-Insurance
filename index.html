@@ -3,37 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded GitHub Buttons</title>
+    <title>Landing Page</title>
     <style>
-        /* Ensure the body takes full height and removes default margins */
-        html, body {
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            height: 100%;
+            background-color: #f0f0f0;
         }
-        /* Container styling */
-        .iframe-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none; /* Remove border if not needed */
-            overflow: hidden;
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
         }
-        /* iframe styling to fill container */
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none; /* Remove default border around iframe */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .button-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <div class="iframe-container">
-        <iframe src="https://headline-grabber.github.io/Headline-Repository-Insurance/" title="GitHub Buttons"></iframe>
-    </div>
+    <h1>Welcome to Headline-Grabber's Insurance Headline Repository</h1>
+
+    <div class="button-container" id="buttons"></div>
+
+    <script>
+        const username = 'headline-grabber'; // Your GitHub username
+        const repository = 'Headline-Repository-Insurance'; // Your repository name
+        const branch = 'main'; // The branch you want to fetch files from
+        const apiUrl = https://api.github.com/repos/${username}/${repository}/git/trees/${branch}?recursive=1;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const files = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.html') && item.path !== 'index.html');
+                const buttonsContainer = document.getElementById('buttons');
+
+                files.forEach(file => {
+                    const fileName = file.path.split('/').pop();
+                    const link = document.createElement('a');
+                    link.href = fileName;
+                    link.textContent = View ${fileName};
+                    link.className = 'download-button';
+
+                    buttonsContainer.appendChild(link);
+                });
+            })
+            .catch(error => console.error('Error fetching files:', error));
+    </script>
 
 </body>
 </html>
