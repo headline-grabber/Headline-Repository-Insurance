@@ -60,7 +60,10 @@
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                const files = data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.html') && item.path !== 'index.html');
+                const files = data.tree
+                    .filter(item => item.type === 'blob' && item.path.endsWith('.html') && item.path !== 'index.html')
+                    .reverse(); // Reverse the array of files
+
                 const buttonsContainer = document.getElementById('buttons');
 
                 files.forEach(file => {
