@@ -9,9 +9,7 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Aligns content to the start horizontally */
-            justify-content: flex-start; /* Aligns content to the top vertically */
-            height: 100vh; /* Keeps the body height equal to the viewport height */
+            align-items: center; /* Centers content horizontally */
             margin: 0;
             padding: 20px; /* Adds some padding to the top and sides */
             background-color: #2f4f4f;
@@ -19,11 +17,15 @@
         h1 {
             margin-bottom: 20px;
             color: #333;
+            text-align: center; /* Center the text of the heading */
         }
         .button-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            width: 100%; /* Ensures the container takes the full width of the body */
+            max-width: 800px; /* Sets a maximum width for the buttons container */
+            text-align: center; /* Center the buttons */
         }
         .button-container a {
             display: inline-block;
@@ -34,6 +36,9 @@
             border-radius: 5px;
             text-decoration: none;
             text-align: center;
+            width: 100%; /* Makes buttons take the full width */
+            max-width: 300px; /* Sets a maximum width for buttons */
+            margin: 0 auto; /* Centers the buttons within the container */
         }
         .button-container a:hover {
             background-color: #0056b3;
